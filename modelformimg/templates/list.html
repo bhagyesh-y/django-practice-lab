@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+ {% block title %}Product List{% endblock %} 
+{% block content %}
+<style>
+  /* Slide-in for table rows */
+  tbody tr {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideIn 0.4s ease-out forwards;
+  }
+
+  tbody tr:nth-child(even) {
+    animation-delay: 0.1s;
+  }
+
+  tbody tr:nth-child(odd) {
+    animation-delay: 0.2s;
+  }
+
+  @keyframes slideIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Fade-in for feedback form */
+  .fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Zoom effect on hover button */
+  .btn-zoom {
+    transition: transform 0.3s ease;
+  }
+
+  .btn-zoom:hover {
+    transform: scale(1.05);
+  }
+   #productSearch {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+</style>
+
+<div class="container table-responsive">
+  <h2 class="text-center mb-4">All Products</h2>
+  <div class="row mb-3">
+    <div class="col-md-6 offset-md-3">
+      <input
+        type="text"
+        id="productSearch"
+        class="form-control"
+        placeholder="🔍 Search product by name..."
+      />
+    </div>
+  </div>
+
+  <table class="table table-bordered table-hover shadow-sm text-center">
+    <thead class="table-dark">
+      <tr>
+        <th class="text-center">Name</th>
+        <th class="text-center">Price</th>
+        <th class="text-center">Quantity</th>
+        <th class="text-center">Image</th>
+      </tr>
+    </thead>
+    <tbody class="fade-in">
+      {% for product in pro_list %}
+      <tr class="text-center">
+        <td>{{ product.pname }}</td>
+        <td>₹ {{ product.price }}</td>
+        <td>{{ product.quantity }}</td>
+        <td>
+          {% if product.image %}
+          <img
+            src="{{ product.image.url }}"
+            alt="Image"
+            class="img-thumbnail rounded"
+            width="80"
+          />
+          {% else %}
+          <span class="text-muted">No Image</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="container mt-5">
+  <h4 class="text-center">💬 Feedback</h4>
+  <form method="post" action="{% url 'feedback' %}" class="fade-in">
+    {% csrf_token %}
+    <div class="mb-3">
+      <input
+        type="text"
+        class="form-control"
+        name="name"
+        placeholder="Your Name"
+      />
+    </div>
+    <div class="mb-3">
+      <input
+        type="email"
+        class="form-control"
+        name="email"
+        placeholder="Your Email"
+      />
+    </div>
+    <div class="mb-3">
+      <textarea
+        class="form-control"
+        name="message"
+        rows="4"
+        placeholder="Your message..."
+      ></textarea>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-primary btn-zoom">Send</button>
+    </div>
+  </form>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("productSearch");
+    const rows = document.querySelectorAll("tbody tr");
+
+    searchInput.addEventListener("keyup", function () {
+      const query = this.value.toLowerCase();
+
+      rows.forEach((row) => {
+        const name = row.cells[0].innerText.toLowerCase();
+        row.style.display = name.includes(query) ? "" : "none";
+      });
+    });
+  });
+</script>
+
+
+{% endblock %}

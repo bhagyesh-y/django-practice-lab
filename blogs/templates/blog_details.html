@@ -1,0 +1,70 @@
+<div class="container mt-5">
+  <!-- Blog Title -->
+  <h1 class="mb-3">{{ blog.heading }}</h1>
+
+  <!-- Author & Date -->
+  <p class="text-muted">
+    By <strong>{{ blog.user.username }}</strong> • 
+    {% if blog.created_at.date == today %}
+      {{ blog.created_at|naturaltime }}
+    {% else %}
+      {{ blog.created_at|date:"F j, Y" }}
+    {% endif %}
+  </p>
+
+  <!-- Blog Image -->
+  <img src="{{ blog.image.url }}" alt="Blog Image" class="img-fluid rounded mb-4">
+
+  <!-- Blog Content -->
+  <p class="lead">{{ blog.paragraph }}</p>
+
+  <hr>
+
+  <!-- Related Blogs -->
+  <h4 class="mt-5">Related Blogs</h4>
+  <div class="row">
+    {% for related in related_blogs %}
+      <div class="col-md-4">
+        <div class="card mb-3">
+          <img src="{{ related.image.url }}" class="card-img-top" alt="Related Blog">
+          <div class="card-body">
+            <h5 class="card-title">{{ related.heading }}</h5>
+            <a href="{% url 'blog_detail' related.id %}" class="btn btn-outline-primary btn-sm">Read More</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>No related blogs found.</p>
+    {% endfor %}
+  </div>
+
+  <hr>
+
+  <!-- Comments -->
+  <h4 class="mt-5">Comments</h4>
+  <div class="mb-3">
+    {% for comment in blog.comments.all %}
+      <div class="border rounded p-2 mb-2">
+        <strong>{{ comment.user.username }}</strong> 
+        <small class="text-muted">({{ comment.created_at|naturaltime }})</small>
+        <p class="mb-0">{{ comment.text }}</p>
+      </div>
+    {% empty %}
+      <p>No comments yet. Be the first one!</p>
+    {% endfor %}
+  </div>
+
+  <!-- Add Comment Form -->
+  {% if user.is_authenticated %}
+  <form method="post" class="mt-3">
+    {% csrf_token %}
+    <div class="form-group mb-2">
+      <textarea name="comment" class="form-control" placeholder="Write a comment..." required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Post Comment</button>
+  </form>
+  {% else %}
+    <p><a href="{% url 'login' %}">Login</a> to comment.</p>
+  {% endif %}
+
+</div>

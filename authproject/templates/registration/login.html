@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+{% extends 'testapp/home.html'%} {{block bodyblock%}}
+<h3>Login to enjoy services</h3>
+<form method="post">
+    {{form_as.p}} {% csrf_token%}
+    <input type="submit" value="Login">
+</form>
+{%endblock%}

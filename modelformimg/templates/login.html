@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 75vh;">
+  <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px;">
+    <h3 class="text-center mb-4">Login</h3>
+    <form method="post">
+      {% csrf_token %}
+
+      <!-- Username -->
+      <div class="mb-3">
+        <label for="id_username" class="form-label">Username:</label>
+        <input type="text" name="username" class="form-control" id="id_username" required>
+      </div>
+
+      <!-- Password with Eye Toggle -->
+      <div class="mb-3">
+        <label for="id_password" class="form-label">Password:</label>
+        <div class="input-group">
+          <input type="password" name="password" class="form-control" id="id_password" required>
+          <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()" tabindex="-1">
+            <i class="bi bi-eye" id="eyeIcon"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Login</button>
+      </div>
+    </form>
+
+    {% if form.errors %}
+    <div class="text-danger mt-3 text-center">
+      Invalid credentials. Please try again.
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- 👁️ Toggle Password Script -->
+<script>
+  function togglePassword() {
+    const input = document.getElementById("id_password");
+    const icon = document.getElementById("eyeIcon");
+    if (input.type === "password") {
+      input.type = "text";
+      icon.classList.remove("bi-eye");
+      icon.classList.add("bi-eye-slash");
+    } else {
+      input.type = "password";
+      icon.classList.remove("bi-eye-slash");
+      icon.classList.add("bi-eye");
+    }
+  }
+</script>
+{% endblock %}

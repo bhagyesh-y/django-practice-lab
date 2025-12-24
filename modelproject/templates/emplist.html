@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emplist</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <h3>Employee data</h3>
+    {% if not emplist %}
+    <h4>No Employee Found</h4>
+    {% else %}
+    <table border="1" class="table">
+      <tr>
+        <th>Name</th>
+        <th>Salary</th>
+        <th>Address</th>
+      </tr>
+      {% for emp in emplist %}
+      <tr>
+        <td>{{ emp.ename}}</td>
+        <td>{{ emp.esal}}</td>
+        <td>{{emp.add}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% endif %}
+  </body>
+</html>

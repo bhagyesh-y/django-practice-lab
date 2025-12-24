@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mumbai</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <style>
+      table {
+        border: 2px solid #007bff;
+      }
+
+      thead th {
+        background-color: #007bff;
+        color: white;
+        font-size: 18px;
+        vertical-align: middle;
+        text-align: center;
+      }
+
+      td {
+        vertical-align: middle;
+        text-align: center;
+        font-size: 16px;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f8f9fa;
+      }
+
+      .btn-primary {
+        font-size: 14px;
+        padding: 6px 12px;
+      }
+
+      .btn-secondary {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+
+  <body class="bg-light">
+    <div class="container py-5">
+      <h2 class="mb-4 text-center text-primary">Mumbai Job Listings</h2>
+      <table class="table table-bordered table-hover align-middle text-center">
+        <thead>
+          <tr>
+            <th scope="col">Company Name</th>
+            <th scope="col">Job Title</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Qualification</th>
+            <th scope="col">Joining Date</th>
+            <th scope="col">Location</th>
+            <th scope="col">Mode</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for job in mumbai_list %}
+          <tr>
+            <td>{{ job.company_name }}</td>
+            <td>{{ job.job_title }}</td>
+            <td>{{ job.sal }}</td>
+            <td>{{ job.qualification }}</td>
+            <td>{{ job.joining_date }}</td>
+            <td>{{ job.location }}</td>
+            <td>{{ job.mode }}</td>
+            <td>
+              <a href="#" class="btn btn-sm btn-primary">Apply</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <a href="/" class="btn btn-secondary">← Back</a>
+    </div>
+  </body>
+</html>

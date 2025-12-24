@@ -1,0 +1,16 @@
+{% extends 'base.html' %} 
+{%block title %}Home - Product Manager{% endblock %} 
+{% block content %}
+<div class="container text-center mt-5">
+  <h1 class="display-4 fw-bold">Welcome to Product Manager</h1>
+  <p class="lead text-muted">
+    Easily add, view, and manage your product inventory.
+  </p>
+
+  <div class="mt-4 d-flex justify-content-center gap-3">
+    <a href="{% url 'product_form' %}" class="btn btn-primary btn-lg btn-animate me-3">➕ Add Product</a>
+    <a href="{% url 'product_list' %}" class="btn btn-success btn-lg">📋 View Products</a>
+</div>
+  </div>
+</div>
+{% endblock %}

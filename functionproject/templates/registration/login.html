@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+{% extends 'home.html'%}
+{% block bodyblock%}
+ <h3>Login to watch demo video</h3>
+ <form method="post"> 
+    {{form.as_p}}
+    {%csrf_token%}
+    <input type="submit" value="Login" class="btn btn-primary">
+ </form>
+
+ {%endblock bodyblock%}

@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}Product App{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'testapp/css/style.css' %}" />
+</head>
+
+<body class="bg-light" id="body">
+  <!-- ✅ Navbar -->
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid"> 
+      <a class="navbar-brand" href="/">🛒 Product Manager</a>
+      <!-- <div>
+        <a class="btn btn-outline-light me-2" href="{% url 'product_form' %}">Add Product</a>
+        <a class="btn btn-outline-light" href="{% url 'product_list' %}">View Products</a>
+      </div> -->
+      {% if user.is_authenticated %}
+      <div class="d-inline">
+        <form action="{% url 'logout' %}" method="post" class="d-inline">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+      </div>
+      {% else %}
+      <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+      {% endif %}
+
+    </div>
+  </nav>
+
+  <!-- ✅ Page Content -->
+  <main class="container mt-4">
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %} {% endif %} {% block content %}{% endblock %}
+  </main>
+
+  <!-- ✅ Footer -->
+  <footer class="bg-dark text-white mt-5 py-4">
+    <div class="container text-center">
+      <p class="mb-1">&copy; 2025 Product Manager. All rights reserved.</p>
+      <p class="mb-0">
+        Made with <span class="text-danger">❤️</span> by
+        <strong class="text-white">Bhagyesh Yadav</strong> |
+        <a href="mailto:bhagyeshyadav29@gmail.com" class="text-warning text-decoration-none">Contact</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- ✅ Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
