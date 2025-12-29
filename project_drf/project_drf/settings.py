@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'employees',
     'friends',
     'cricketers',
+    'fruits',
+    'heroes'
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import JsonResponse
-from .serializers import StudentSerializer,EmployeeSerializer,FriendSerializer,CricketerSerializer
+from .serializers import StudentSerializer,EmployeeSerializer,FriendSerializer,CricketerSerializer,FruitSerializer,HeroSerializer
 from rest_framework.response import  Response
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -9,8 +9,10 @@ from employees.models import Employee
 from friends.models import Friend
 from cricketers.models import Cricketer
 from students.models import Student ,Teacher
+from fruits.models import Fruit
+from heroes.models import Hero
 from django.http import Http404
-from rest_framework import mixins , generics
+from rest_framework import mixins , generics , viewsets
 
 
 
@@ -134,14 +136,50 @@ class Cricketers(generics.ListCreateAPIView):
     queryset = Cricketer.objects.all()
     serializer_class = CricketerSerializer
     
-    #  Generics 
+    #  Generics for individual object
 class CricketerDetail(generics.RetrieveUpdateDestroyAPIView):  
     queryset = Cricketer.objects.all()
     serializer_class = CricketerSerializer
     lookup_field = 'pk'
      
+     
+     
+#Viewets 
+class FruitViewset(viewsets.ViewSet):
+    def list (self,request):
+        queryset = Fruit.objects.all()
+        serializer = FruitSerializer(queryset,many = True)
+        return Response (serializer.data)
     
-
+    def create(self,request):
+        serializer = FruitSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors)
+        
+    def retrieve(self,request,pk=None):
+        fruit = get_object_or_404(Fruit,pk=pk)
+        serializer = FruitSerializer(fruit)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    
+    def update(self,request,pk=None):
+        fruit=get_object_or_404(Fruit,pk=pk)
+        serializer=FruitSerializer(fruit,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors)
+        
+    def delete(self,request,pk=None):
+        fruit=get_object_or_404(Fruit,pk=None)
+        fruit.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+# Viewset.Model which will actually take less lines of code in compared of viewsets
+class HeroViewset(viewsets.ModelViewSet):
+    queryset=Hero.objects.all()
+    serializer_class=HeroSerializer
         
         
     
