@@ -1,6 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from django.http import JsonResponse
 from .serializers import StudentSerializer,EmployeeSerializer,FriendSerializer,CricketerSerializer,FruitSerializer,HeroSerializer
+from blogs.serializers import BlogSerializer,CommentSerializer
 from rest_framework.response import  Response
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -11,6 +12,7 @@ from cricketers.models import Cricketer
 from students.models import Student ,Teacher
 from fruits.models import Fruit
 from heroes.models import Hero
+from blogs.models import Blog,Comment
 from django.http import Http404
 from rest_framework import mixins , generics , viewsets
 
@@ -181,5 +183,22 @@ class HeroViewset(viewsets.ModelViewSet):
     queryset=Hero.objects.all()
     serializer_class=HeroSerializer
         
-        
+# Nested serializers starts here
+class BlogsView(generics.ListCreateAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
     
+    
+class CommentsView(generics.ListCreateAPIView):
+        queryset=Comment.objects.all()
+        serializer_class = CommentSerializer
+
+class BlogDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset=Blog.objects.all()
+    serializer_class = BlogSerializer
+    lookup_field = 'pk'
+
+class CommentDetailView(generics.RetrieveUpdateDestroyAPIView):        
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    lookup_field='pk'

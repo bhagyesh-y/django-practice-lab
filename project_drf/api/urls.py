@@ -16,6 +16,12 @@ urlpatterns = [
     path('friends/<int:pk>/',views.FriendDetail.as_view()),
     path('cricketers/',views.Cricketers.as_view()),
     path('cricketers/<int:pk>/',views.CricketerDetail.as_view()),
-    path('',include(router.urls))
+    path('',include(router.urls)),
+    path('blogs/',views.BlogsView.as_view()),
+    path('comments/',views.CommentsView.as_view()),
+    path('blogs/<int:pk>/',views.BlogDetailView.as_view()),
+    path('comments/<int:pk>/',views.CommentDetailView.as_view()),
+
+    
     
 ]

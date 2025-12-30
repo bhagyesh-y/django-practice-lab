@@ -44,8 +44,9 @@ INSTALLED_APPS = [
     'friends',
     'cricketers',
     'fruits',
-    'heroes'
-]
+    'heroes',
+    'blogs',
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
