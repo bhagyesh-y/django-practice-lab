@@ -14,6 +14,7 @@ from fruits.models import Fruit
 from heroes.models import Hero
 from blogs.models import Blog,Comment
 from .paginations import CustomPagination
+from heroes.filters import HeroFilter
 from django.http import Http404
 from rest_framework import mixins , generics , viewsets
 
@@ -184,7 +185,8 @@ class HeroViewset(viewsets.ModelViewSet):
     queryset=Hero.objects.all()
     serializer_class=HeroSerializer
     pagination_class=CustomPagination # this is custom pagination class used
-    filterset_fields=['power']
+   # filterset_fields=['power'] # this is filter which filters data by provided parameter 
+    filterset_class=HeroFilter
         
 # Nested serializers starts here
 class BlogsView(generics.ListCreateAPIView):
@@ -193,7 +195,7 @@ class BlogsView(generics.ListCreateAPIView):
     
     
 class CommentsView(generics.ListCreateAPIView):
-        queryset=Comment.objects.all()
+        queryset=Comment.objects.all() 
         serializer_class = CommentSerializer
         
 

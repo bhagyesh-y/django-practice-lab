@@ -138,8 +138,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK={  
      'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.LimitOffsetPagination',
-  'PAGE_SIZE':1,
-  'DEFAULT_FILTER_BACKENDS':['django_filters.rest_framework.DjangoFilterBackend']}
+  'PAGE_SIZE':4,
+  # above 2 lines are for pagination 
+  # Below is filter class 
+  'DEFAULT_FILTER_BACKENDS':['django_filters.rest_framework.DjangoFilterBackend']
+  }
 
 # custom pagination
 

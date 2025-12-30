@@ -14,4 +14,4 @@ class CustomPagination(PageNumberPagination):
             'count':self.page.paginator.count,
             'page_size':self.page_size,
             'results':data
-        })
+        }) 
