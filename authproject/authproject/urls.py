@@ -20,8 +20,8 @@ from testapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('/', views.home_view),
-    path('py/', views.python_view),
+    path('', views.home_view),
+    path('pyt/', views.pyt_view),
     path('accounts/', include('django.contrib.auth.urls')),
     path('logout/',views.logout_view),
     path('signup/',views.signup_view),
