@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Employees',
 ]
 
 MIDDLEWARE = [
@@ -126,4 +127,9 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
+#  to activate the environment
+# .\env\Scripts\Activate.ps1
 
+#  Media files configuration
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR /'media'
